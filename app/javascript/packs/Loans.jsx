@@ -2,6 +2,7 @@ import React from "react";
 import Amortization from "./Amortization";
 import { useEffect, useState } from "react";
 import style from "../styles/Loans.module.css";
+import { fecha_hoy, fecha_dia_anterior, formatDate, formatNumero } from './helper.jsx';
 
 import { Container, Form, Row, Col, Modal, Button } from "react-bootstrap";
 

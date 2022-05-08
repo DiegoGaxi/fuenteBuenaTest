@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Loan:</strong>
+  <%= @amortization.loan_id %>
+</p>
+
+<p>
+  <strong>No pago:</strong>
+  <%= @amortization.no_pago %>
+</p>
+
+<p>
+  <strong>Saldo insoluto:</strong>
+  <%= @amortization.saldo_insoluto %>
+</p>
+
+<p>
+  <strong>Iva:</strong>
+  <%= @amortization.iva %>
+</p>
+
+<p>
+  <strong>Pago capital:</strong>
+  <%= @amortization.pago_capital %>
+</p>
+
+<p>
+  <strong>Pago capital con intereses:</strong>
+  <%= @amortization.pago_capital_con_intereses %>
+</p>
+
+<p>
+  <strong>Monto interes:</strong>
+  <%= @amortization.monto_interes %>
+</p>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @amortization.fecha %>
+</p>
+
+<%= link_to 'Edit', edit_amortization_path(@amortization) %> |
+<%= link_to 'Back', amortizations_path %>

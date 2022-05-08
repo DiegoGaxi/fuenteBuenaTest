@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  loan: one
+  no_pago: 1
+  saldo_insoluto: 9.99
+  iva: 1.5
+  pago_capital: 9.99
+  pago_capital_con_intereses: 9.99
+  monto_interes: 1.5
+  fecha: 2022-05-08
+
+two:
+  loan: two
+  no_pago: 1
+  saldo_insoluto: 9.99
+  iva: 1.5
+  pago_capital: 9.99
+  pago_capital_con_intereses: 9.99
+  monto_interes: 1.5
+  fecha: 2022-05-08

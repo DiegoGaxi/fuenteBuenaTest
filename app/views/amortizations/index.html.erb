@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Amortizations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Loan</th>
+      <th>No pago</th>
+      <th>Saldo insoluto</th>
+      <th>Iva</th>
+      <th>Pago capital</th>
+      <th>Pago capital con intereses</th>
+      <th>Monto interes</th>
+      <th>Fecha</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @amortizations.each do |amortization| %>
+      <tr>
+        <td><%= amortization.loan_id %></td>
+        <td><%= amortization.no_pago %></td>
+        <td><%= amortization.saldo_insoluto %></td>
+        <td><%= amortization.iva %></td>
+        <td><%= amortization.pago_capital %></td>
+        <td><%= amortization.pago_capital_con_intereses %></td>
+        <td><%= amortization.monto_interes %></td>
+        <td><%= amortization.fecha %></td>
+        <td><%= link_to 'Show', amortization %></td>
+        <td><%= link_to 'Edit', edit_amortization_path(amortization) %></td>
+        <td><%= link_to 'Destroy', amortization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Amortization', new_amortization_path %>

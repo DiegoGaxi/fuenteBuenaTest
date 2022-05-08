@@ -1,12 +1,24 @@
 import React from "react";
 import style from "../styles/Amortization.module.css";
+import {
+  fecha_hoy,
+  fecha_dia_anterior,
+  formatDate,
+  formatNumero,
+} from "./helper.jsx";
 
 import { useEffect, useState } from "react";
 
 function Amortization({ loan }) {
   const [amortization, setAmortization] = useState([]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    fetch("/crear_loan")
+      .then((res) => res.json())
+      .then((data) => {
+        setAmortization(data);
+      });
+  }, []);
 
   return (
     <>

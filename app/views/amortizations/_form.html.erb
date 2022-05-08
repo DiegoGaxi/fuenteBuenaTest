@@ -1,0 +1,57 @@
+<%= form_with(model: amortization) do |form| %>
+  <% if amortization.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(amortization.errors.count, "error") %> prohibited this amortization from being saved:</h2>
+
+      <ul>
+        <% amortization.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :loan_id %>
+    <%= form.text_field :loan_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :no_pago %>
+    <%= form.number_field :no_pago %>
+  </div>
+
+  <div class="field">
+    <%= form.label :saldo_insoluto %>
+    <%= form.text_field :saldo_insoluto %>
+  </div>
+
+  <div class="field">
+    <%= form.label :iva %>
+    <%= form.text_field :iva %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pago_capital %>
+    <%= form.text_field :pago_capital %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pago_capital_con_intereses %>
+    <%= form.text_field :pago_capital_con_intereses %>
+  </div>
+
+  <div class="field">
+    <%= form.label :monto_interes %>
+    <%= form.text_field :monto_interes %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fecha %>
+    <%= form.date_select :fecha %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
