@@ -1,4 +1,5 @@
 import React from "react";
+import style from "../styles/Amortization.module.css";
 
 import { useEffect, useState } from "react";
 
@@ -10,10 +11,10 @@ function Amortization({ loan }) {
   return (
     <>
       <h1> Amortizacion </h1>
-      <table style={tabla}>
+      <table className={style.tabla}>
         <thead>
           <tr>
-            <th>#</th>
+            <th>No.Pago</th>
             <th>Fecha</th>
             <th>Interes</th>
             <th>Pago Capital</th>
@@ -37,54 +38,5 @@ function Amortization({ loan }) {
     </>
   );
 }
-
-const tabla = {
-  overflowX: "auto",
-  maxWidth: "97%",
-};
-
-// .tabla {
-//     /* margin: 3vh; */
-//     overflow-x: auto;
-//     max-width: 97vw;
-//     background-image: white;
-//     border-radius: 10px;
-//     font-size: 13px;
-//     line-height: normal;
-//     display: -webkit-box;
-//     vertical-align: inherit;
-//     text-align: center !important;
-//     color: #304891;
-//     text-indent: initial;
-//     border-spacing: 10px 0px !important;
-//     border-collapse: inherit !important;
-//     text-overflow: ellipsis;
-//     -webkit-box-pack: center;
-//   }
-
-//   .tabla th {
-//     font-size: 15px;
-//     text-align-last: center;
-//     padding: 12px;
-//     text-transform: capitalize;
-//     text-align: center !important;
-//     background-color: rgba(114, 114, 114, 0.096);
-//     max-width: auto;
-//     border: none !important;
-//     color: #192a5a;
-//     vertical-align: middle !important;
-//     text-align: -webkit-center !important;
-//   }
-
-//   .tabla td {
-//     padding: 9px;
-//     white-space: nowrap;
-//     color: #000000;
-//     text-align: center;
-//     border-top: none !important;
-//     vertical-align: middle !important;
-//     border-bottom: 1px solid rgba(187, 196, 197, 0.835);
-//     text-align: -webkit-center !important;
-//   }
 
 export default Amortization;

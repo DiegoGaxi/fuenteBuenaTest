@@ -1,6 +1,7 @@
 import React from "react";
 import Amortization from "./Amortization";
 import { useEffect, useState } from "react";
+import style from "../styles/Loans.module.css";
 
 import { Container, Form, Row, Col, Modal, Button } from "react-bootstrap";
 
@@ -33,6 +34,7 @@ function Loans() {
               <Form.Label>Principal</Form.Label>
               <Form.Group controlId="formBasicEmail">
                 <Form.Control
+                  className={style.transparent}
                   required
                   type="number"
                   placeholder="Ingresa el monto del prestamo"
@@ -47,6 +49,7 @@ function Loans() {
               <Form.Label>Interes</Form.Label>
               <Form.Group controlId="formBasicInteres">
                 <Form.Control
+                  className={style.transparent}
                   required
                   type="number"
                   placeholder="Ingresar el interes del prestamo"
@@ -61,6 +64,7 @@ function Loans() {
               <Form.Label>Plazo</Form.Label>
               <Form.Group controlId="formBasicSelect">
                 <Form.Control
+                  className={style.transparent}
                   required
                   as="select"
                   onChange={(e) => {
@@ -114,13 +118,10 @@ const container = {
   borderRadius: "10px",
   border: "1px solid #ccc",
   backgroundColor: "#f5f5f5",
-  fontSize: "20px",
+  fontSize: "13px",
   fontWeight: "bold",
   fontFamily: "Arial, Helvetica, sans-serif",
-  fontStyle: "italic",
   textAlign: "center",
-  textDecoration: "underline",
-  textTransform: "uppercase",
   textShadow: "1px 1px #ccc",
 };
 
