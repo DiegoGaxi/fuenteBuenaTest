@@ -5,39 +5,39 @@ class ClientsTest < ApplicationSystemTestCase
     @client = clients(:one)
   end
 
-  test "visiting the index" do
-    visit clients_url
-    assert_selector "h1", text: "Clients"
-  end
+  # test "visiting the index" do
+  #   visit clients_url
+  #   assert_selector "h1", text: "Clients"
+  # end
 
-  test "creating a Client" do
-    visit clients_url
-    click_on "New Client"
+  # test "creating a Client" do
+  #   visit clients_url
+  #   click_on "New Client"
 
-    fill_in "Name", with: @client.name
-    click_on "Create Client"
+  #   fill_in "Name", with: @client.name
+  #   click_on "Create Client"
 
-    assert_text "Client was successfully created"
-    click_on "Back"
-  end
+  #   assert_text "Client was successfully created"
+  #   click_on "Back"
+  # end
 
-  test "updating a Client" do
-    visit clients_url
-    click_on "Edit", match: :first
+  # test "updating a Client" do
+  #   visit clients_url
+  #   click_on "Edit", match: :first
 
-    fill_in "Name", with: @client.name
-    click_on "Update Client"
+  #   fill_in "Name", with: @client.name
+  #   click_on "Update Client"
 
-    assert_text "Client was successfully updated"
-    click_on "Back"
-  end
+  #   assert_text "Client was successfully updated"
+  #   click_on "Back"
+  # end
 
-  test "destroying a Client" do
-    visit clients_url
-    page.accept_confirm do
-      click_on "Destroy", match: :first
-    end
+  # test "destroying a Client" do
+  #   visit clients_url
+  #   page.accept_confirm do
+  #     click_on "Destroy", match: :first
+  #   end
 
-    assert_text "Client was successfully destroyed"
-  end
+  #   assert_text "Client was successfully destroyed"
+  # end
 end

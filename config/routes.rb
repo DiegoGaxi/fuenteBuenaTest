@@ -6,9 +6,13 @@ Rails.application.routes.draw do
   resources :clients
 
   root 'application#index'
-  
-    get 'about', to: 'application#about'
-    get 'crear_loan', to: 'loans#crear_loan'
 
-  get '*path', to: 'application#index'
+    get 'getPrestamo/:principal/(:interes)/:plazo', to: 'loans#getPrestamo', :constraints => {:interes => /[^\/]+/}
+
+
+    get 'getCliente', to: 'clients#getCliente'
+    
+    post 'guardarPrestamo', to: 'loans#guardarPrestamo'
+
+    get '*path', to: 'application#index'
 end

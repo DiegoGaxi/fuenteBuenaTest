@@ -1,77 +1,153 @@
 import React from "react";
 import Amortization from "./Amortization";
 import { useEffect, useState } from "react";
-import style from "../styles/Loans.module.css";
-import { fecha_hoy, fecha_dia_anterior, formatDate, formatNumero } from './helper.jsx';
-
-import { Container, Form, Row, Col, Modal, Button } from "react-bootstrap";
+import { formatNumero } from "./helper.jsx";
+import axios from "axios";
+import {
+  Container,
+  Form,
+  Row,
+  Col,
+  Alert,
+  Button,
+  Spinner,
+} from "react-bootstrap";
 
 function Loans() {
-  const [loan, setLoan] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [loan, setLoan] = useState(null);
+  const [formulario, setFormulario] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  const getPrestamo = async (e) => {
+    setLoading(true);
+
+    await axios
+      .get(
+        "getPrestamo/" +
+          formulario.principal +
+          "/" +
+          formulario.interes +
+          "/" +
+          formulario.plazo
+      )
+      .then((res) => {
+        setLoan(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  };
+
+  const guardarPrestamo = async (loan) => {
+    setLoading(true);
+    loan.client_id = formulario?.cliente?.id;
+    await axios
+      .post("guardarPrestamo", loan)
+      .then((res) => {
+        setLoading(false);
+        setFormulario({ principal: "", interes: "", plazo: "" });
+        setLoan(null);
+        getCliente();
+        alert("Prestamo guardado");
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  };
+
+  const getCliente = async (e) => {
+    setLoading(true);
+    await axios.get("getCliente").then((res) => {
+      setLoading(false);
+      setFormulario({ cliente: res.data });
+    });
+  };
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    getCliente();
   }, []);
 
   return (
     <>
-      <Container fluid style={container}>
+      <Container fluid className={"container centered"}>
         <Row>
           <Col>
             <h1> Calculadora de Prestamos</h1>
+            <h4> Cliente: {formulario?.cliente?.name} </h4>
+            <h5>
+              {" "}
+              Actual en Prestamo:{" "}
+              {formatNumero(parseFloat(formulario?.cliente?.prestado), "$") ||
+                0}
+            </h5>
           </Col>
         </Row>
         <Row>
           <Form
-            style={form}
+            className="form"
             onSubmit={(e) => {
               e.preventDefault();
+              getPrestamo(e);
             }}
           >
-            <Col>
+            <Col lg={4}>
               <Form.Label>Principal</Form.Label>
               <Form.Group controlId="formBasicEmail">
                 <Form.Control
-                  className={style.transparent}
+                  step="0.1"
+                  className={"transparent"}
                   required
+                  min="0"
                   type="number"
                   placeholder="Ingresa el monto del prestamo"
+                  value={formulario?.principal}
                   onChange={(e) => {
-                    setLoan({ ...loan, principal: e.target.value });
+                    setFormulario({
+                      ...formulario,
+                      principal: parseFloat(e.target.value),
+                    });
                   }}
                 />
               </Form.Group>
             </Col>
 
-            <Col>
+            <Col lg={4}>
               <Form.Label>Interes</Form.Label>
               <Form.Group controlId="formBasicInteres">
                 <Form.Control
-                  className={style.transparent}
+                  step="0.1"
+                  min="0"
+                  className={"transparent"}
                   required
                   type="number"
                   placeholder="Ingresar el interes del prestamo"
+                  value={formulario?.interes}
                   onChange={(e) => {
-                    setLoan({ ...loan, interest: e.target.value });
+                    setFormulario({
+                      ...formulario,
+                      interes: parseFloat(e.target.value),
+                    });
                   }}
                 />
               </Form.Group>
             </Col>
 
-            <Col>
+            <Col lg={4}>
               <Form.Label>Plazo</Form.Label>
               <Form.Group controlId="formBasicSelect">
                 <Form.Control
-                  className={style.transparent}
+                  className={"transparent"}
                   required
                   as="select"
+                  value={formulario?.plazo}
                   onChange={(e) => {
-                    setLoan({ ...loan, term: e.target.value });
+                    setFormulario({ ...formulario, plazo: e.target.value });
                   }}
                 >
+                  <option value="">Seleccione el plazo</option>
                   <option value="12">12 meses</option>
                   <option value="24">24 meses</option>
                   <option value="36">36 meses</option>
@@ -80,52 +156,48 @@ function Loans() {
                 </Form.Control>
               </Form.Group>
             </Col>
-
-            <Col>
-              <Button
-                variant="primary"
-                type="submit"
-                onClick={() => {
-                  setLoading(true);
-                  setTimeout(() => {
-                    setLoading(false);
-                  }, 1000);
-                }}
-              >
-                Calculate
+            <Col lg={4} className="mt-2">
+              <Button type="submit" variant="white" className=" button">
+                Calcular
               </Button>
             </Col>
           </Form>
         </Row>
 
+        <Row className="centered">
+          {loan && (
+            <Col md={12}>
+              <h3>{loan.message}</h3>
+
+              <Button
+                size="sm"
+                variant="white"
+                className="button"
+                onClick={() => {
+                  guardarPrestamo(loan);
+                }}
+              >
+                Guardar Prestamo
+              </Button>
+            </Col>
+          )}
+        </Row>
+
         <Row>
-          <Col>
-            <Amortization loan={loan} loading={loading} />
+          <Col lg={12}>
+            <Amortization loan={loan} />
           </Col>
         </Row>
       </Container>
+
+      {loading && (
+        <Alert className="centered alert">
+          <Alert.Heading>Cargando...</Alert.Heading>
+          <Spinner animation="border" />
+        </Alert>
+      )}
     </>
   );
 }
-
-const container = {
-  justifyContent: "center",
-  alignItems: "center",
-  marginTop: "20px",
-  marginBottom: "20px",
-  marginLeft: "20px",
-  marginRight: "20px",
-  padding: "20px",
-  borderRadius: "10px",
-  border: "1px solid #ccc",
-  backgroundColor: "#f5f5f5",
-  fontSize: "13px",
-  fontWeight: "bold",
-  fontFamily: "Arial, Helvetica, sans-serif",
-  textAlign: "center",
-  textShadow: "1px 1px #ccc",
-};
-
-const form = {};
 
 export default Loans;
