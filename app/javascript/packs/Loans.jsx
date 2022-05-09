@@ -17,18 +17,18 @@ function Loans() {
   const [loan, setLoan] = useState(null);
   const [formulario, setFormulario] = useState({});
   const [loading, setLoading] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   const getPrestamo = async (e) => {
     setLoading(true);
-
     await axios
       .get(
         "getPrestamo/" +
-          formulario.principal +
-          "/" +
-          formulario.interes +
-          "/" +
-          formulario.plazo
+        formulario.principal +
+        "/" +
+        formulario.interes +
+        "/" +
+        formulario.plazo
       )
       .then((res) => {
         setLoan(res.data);
@@ -42,15 +42,19 @@ function Loans() {
 
   const guardarPrestamo = async (loan) => {
     setLoading(true);
-    loan.client_id = formulario?.cliente?.id;
+    loan.cliente_id = formulario?.cliente?._id;
     await axios
       .post("guardarPrestamo", loan)
       .then((res) => {
         setLoading(false);
+        setSaved(true);
         setFormulario({ principal: "", interes: "", plazo: "" });
         setLoan(null);
         getCliente();
-        alert("Prestamo guardado");
+        setTimeout(() => {
+          setSaved(false);
+        }
+          , 1400);
       })
       .catch((err) => {
         console.log(err);
@@ -60,7 +64,7 @@ function Loans() {
 
   const getCliente = async (e) => {
     setLoading(true);
-    await axios.get("getCliente").then((res) => {
+    await axios.get("getClienteMongo").then((res) => {
       setLoading(false);
       setFormulario({ cliente: res.data });
     });
@@ -80,8 +84,7 @@ function Loans() {
             <h5>
               {" "}
               Actual en Prestamo:{" "}
-              {formatNumero(parseFloat(formulario?.cliente?.prestado), "$") ||
-                0}
+              {formatNumero(parseFloat(formulario?.cliente?.prestado), "$")}
             </h5>
           </Col>
         </Row>
@@ -164,11 +167,21 @@ function Loans() {
           </Form>
         </Row>
 
-        <Row className="centered">
-          {loan && (
-            <Col md={12}>
-              <h3>{loan.message}</h3>
+        {loan && (
+          <Row className="centered">
+            <Row>
+              <Col>
+                <h3>Pago periódico: {formatNumero(parseFloat(loan.pago_capital_con_intereses), "$")} </h3>
+              </Col>
+              {/* <Col>
+                <h3>Intereses Totales: {formatNumero(parseFloat(loan.intereses_totales), "$")} </h3>
+              </Col> */}
+              <Col>
+                <h3>Monto Final: {formatNumero(parseFloat(loan.monto_final_prestamo), "$")} </h3>
+              </Col>
+            </Row>
 
+            <Col md={12}>
               <Button
                 size="sm"
                 variant="white"
@@ -180,8 +193,8 @@ function Loans() {
                 Guardar Prestamo
               </Button>
             </Col>
-          )}
-        </Row>
+          </Row>
+        )}
 
         <Row>
           <Col lg={12}>
@@ -194,6 +207,12 @@ function Loans() {
         <Alert className="centered alert">
           <Alert.Heading>Cargando...</Alert.Heading>
           <Spinner animation="border" />
+        </Alert>
+      )}
+
+      {saved && (
+        <Alert className="centered alert success">
+          <Alert.Heading> Guardado</Alert.Heading>
         </Alert>
       )}
     </>

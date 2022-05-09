@@ -1,24 +1,11 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1 - Descargar postgreSQL,MongoDB, MongoDBCompass, Mongosh
+2 - git clone https://github.com/DiegoGaxi/fuenteBuenaTest.git
+3 - bundle install
+4 - npm install
+5 - Editar 'pg_hba' en carpeta postgreSQL, al final escribir: host    all             all             0.0.0.0/0            trust
+6 - rails g mongoid:config
+7 - rails db:setup
+8 - rails db:migrate
+9 - rails s

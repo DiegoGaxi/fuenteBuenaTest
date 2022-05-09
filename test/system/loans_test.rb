@@ -14,7 +14,7 @@ class LoansTest < ApplicationSystemTestCase
   #   visit loans_url
   #   click_on "New Loan"
 
-  #   fill_in "Client", with: @loan.client_id
+  #   fill_in "Client", with: @loan.cliente_id
   #   fill_in "Interes", with: @loan.interes
   #   fill_in "Plazo", with: @loan.plazo
   #   fill_in "Principal", with: @loan.principal
@@ -28,7 +28,7 @@ class LoansTest < ApplicationSystemTestCase
   #   visit loans_url
   #   click_on "Edit", match: :first
 
-  #   fill_in "Client", with: @loan.client_id
+  #   fill_in "Client", with: @loan.cliente_id
   #   fill_in "Interes", with: @loan.interes
   #   fill_in "Plazo", with: @loan.plazo
   #   fill_in "Principal", with: @loan.principal

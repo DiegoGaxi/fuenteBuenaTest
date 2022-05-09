@@ -11,7 +11,6 @@ function Amortization({ loan }) {
             <th>Periodo</th>
             <th>Pago Capital</th>
             <th>Interes</th>
-            <th>Monto Pago</th>
             <th>Saldo Insoluto</th>
             <th>Fecha</th>
           </tr>
@@ -22,9 +21,6 @@ function Amortization({ loan }) {
               <td>{item.no_pago}</td>
               <td>{formatNumero(parseFloat(item.pago_capital), "$")}</td>
               <td>{formatNumero(parseFloat(item.interes), "$")}</td>
-              <td>
-                {formatNumero(parseFloat(item.pago_capital_con_intereses), "$")}
-              </td>
               <td>{formatNumero(parseFloat(item.saldo_insoluto), "$")}</td>
               <td>{item.fecha}</td>
             </tr>

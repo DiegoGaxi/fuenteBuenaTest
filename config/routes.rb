@@ -1,18 +1,17 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  
+
+  resources :clientes
   resources :amortizations
   resources :loans
-  resources :clients
 
   root 'application#index'
 
     get 'getPrestamo/:principal/(:interes)/:plazo', to: 'loans#getPrestamo', :constraints => {:interes => /[^\/]+/}
 
+    get 'getClienteMongo', to: 'clientes#getClienteMongo'
 
-    get 'getCliente', to: 'clients#getCliente'
-    
     post 'guardarPrestamo', to: 'loans#guardarPrestamo'
 
-    get '*path', to: 'application#index'
+    # Path general para cuando no escriben bien una ruta
+    # get '*path', to: 'application#index'
 end

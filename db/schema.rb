@@ -29,22 +29,14 @@ ActiveRecord::Schema.define(version: 2022_05_08_080919) do
     t.index ["loan_id"], name: "index_amortizations_on_loan_id"
   end
 
-  create_table "clients", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "loans", force: :cascade do |t|
     t.decimal "principal", precision: 64, scale: 12
     t.float "interes"
     t.integer "plazo"
-    t.bigint "client_id", null: false
+    t.integer "cliente_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["client_id"], name: "index_loans_on_client_id"
   end
 
   add_foreign_key "amortizations", "loans"
-  add_foreign_key "loans", "clients"
 end

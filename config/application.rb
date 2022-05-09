@@ -10,6 +10,9 @@ module FuenteBuenaTest
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
+
+    Mongoid.load!("config/mongoid.yml") # load the config file
+    Mongoid.logger.level = Logger::DEBUG
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
