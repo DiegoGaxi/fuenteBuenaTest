@@ -24,11 +24,11 @@ function Loans() {
     await axios
       .get(
         "getPrestamo/" +
-        formulario.principal +
-        "/" +
-        formulario.interes +
-        "/" +
-        formulario.plazo
+          formulario.principal +
+          "/" +
+          formulario.interes +
+          "/" +
+          formulario.plazo
       )
       .then((res) => {
         setLoan(res.data);
@@ -53,8 +53,7 @@ function Loans() {
         getCliente();
         setTimeout(() => {
           setSaved(false);
-        }
-          , 1400);
+        }, 1400);
       })
       .catch((err) => {
         console.log(err);
@@ -82,8 +81,7 @@ function Loans() {
             <h1> Calculadora de Prestamos</h1>
             <h4> Cliente: {formulario?.cliente?.name} </h4>
             <h5>
-              {" "}
-              Actual en Prestamo:{" "}
+              Actual en Prestamo:
               {formatNumero(parseFloat(formulario?.cliente?.prestado), "$")}
             </h5>
           </Col>
@@ -171,13 +169,22 @@ function Loans() {
           <Row className="centered">
             <Row>
               <Col>
-                <h3>Pago periódico: {formatNumero(parseFloat(loan.pago_capital_con_intereses), "$")} </h3>
+                <h3>
+                  Pago periódico:
+                  {formatNumero(
+                    parseFloat(loan.pago_capital_con_intereses),
+                    "$"
+                  )}
+                </h3>
               </Col>
               {/* <Col>
                 <h3>Intereses Totales: {formatNumero(parseFloat(loan.intereses_totales), "$")} </h3>
               </Col> */}
               <Col>
-                <h3>Monto Final: {formatNumero(parseFloat(loan.monto_final_prestamo), "$")} </h3>
+                <h3>
+                  Monto Final:
+                  {formatNumero(parseFloat(loan.monto_final_prestamo), "$")}
+                </h3>
               </Col>
             </Row>
 

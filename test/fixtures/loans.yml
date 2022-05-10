@@ -4,10 +4,10 @@ one:
   principal: 9.99
   interes: 1.5
   plazo: 1
-  client: one
+  cliente: one
 
 two:
   principal: 9.99
   interes: 1.5
   plazo: 1
-  client: two
+  cliente: two

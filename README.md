@@ -1,5 +1,9 @@
 # README
 
+Ruby Version = 2.6.6
+Node Version = 14.10.0
+npm version = 6.14.8
+
 1 - Descargar postgreSQL (https://www.postgresql.org/download/)
 
 MongoDB (https://www.mongodb.com/try/download/community?tck=docs_server),
@@ -29,4 +33,5 @@ Si hay error mirar (https://kb.objectrocket.com/mongo-db/how-to-install-and-setu
 ![Amortizacion](https://user-images.githubusercontent.com/33499073/167515982-b87f978f-e78a-4a1d-87f0-c3a6d0c67ad3.PNG)
 
 ![PrestamoGuardado](https://user-images.githubusercontent.com/33499073/167515983-f03f4dfa-5f8d-4a96-8662-e25a39f63924.PNG)
+
 
