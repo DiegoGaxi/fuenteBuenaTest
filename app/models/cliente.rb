@@ -1,4 +1,5 @@
 class Cliente
+  # MongoDB connection and attributes
   include Mongoid::Document
   include Mongoid::Timestamps
   field :name, type: String

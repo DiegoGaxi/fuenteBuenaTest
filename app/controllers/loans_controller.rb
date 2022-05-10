@@ -8,28 +8,33 @@ class LoansController < ApplicationController
 
   def getPrestamo
     success = false
+    # Se obtienen los parametros de la url del prestamo
     principal = params[:principal].to_i
     interes = params[:interes].to_f
     plazo = params[:plazo].to_i
-
+    
+    # Calculo el prestamo con FinanceMath::Loan
     @loan = FinanceMath::Loan.new(nominal_rate: interes, duration: plazo, amount: principal, structure_fee: 0, currency_protection: 0, fee: 0)
-
+    
+    # Calculos de Variables (formulas)
     monto_capital = @loan.principal.to_i
     pago_capital = (@loan.principal / @loan.duration)
     pago_capital_con_intereses = @loan.pmt.to_i
     pago_intereses = (pago_capital_con_intereses - pago_capital)
+    monto_final_prestamo = (pago_capital_con_intereses * @loan.duration).to_i
+    
+    # Array que contendra las amortizaciones del prestamo
+    @amortizacion = []
     monto_acumulado = 0
     monto_acumulado_con_intereses = 0
 
-    monto_final_prestamo = (pago_capital_con_intereses * @loan.duration).to_i
-
-    @amortizacion = []
-
+    # Ciclo para generar las amortizaciones
     (1..@loan.duration.to_i).each do |i|
       monto_acumulado += pago_capital
       saldo_insoluto = monto_capital - monto_acumulado
       monto_acumulado_con_intereses += pago_capital_con_intereses
-
+      
+      # Inserto Amortizaciones para el prestamo en el arreglo
       @amortizacion << {
         no_pago: i,
         saldo_insoluto:(saldo_insoluto.to_i),
@@ -43,6 +48,8 @@ class LoansController < ApplicationController
         monto_acumulado_con_intereses: monto_acumulado_con_intereses,
       }
     end
+
+    # Retorno el resultado de la transaccion
         render json: {
         loan:@loan,
         amortizacion:@amortizacion,
@@ -54,6 +61,7 @@ class LoansController < ApplicationController
         }
   end
 
+  # Guarda el prestamo en la base de datos
   def guardarPrestamo
     ActiveRecord::Base.transaction do
       success = false
@@ -64,10 +72,12 @@ class LoansController < ApplicationController
       @loan.cliente_id = params[:cliente_id]
 
       if @loan.save
+        # Guardo las amortizaciones llamando al modelo Amortizacion
        if Amortization.new.guardarAmortizaciones(@loan, params[:amortizacion])
           success = true
         end
       end
+      # Si todo salio bien, se retorna true
       render json: { success:success }
     end
   end

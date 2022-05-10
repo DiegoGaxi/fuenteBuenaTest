@@ -3,9 +3,11 @@ class Amortization < ApplicationRecord
 
   validates_presence_of :no_pago, :saldo_insoluto, :monto_interes,:iva, :pago_capital, :pago_capital_con_intereses ,:fecha , :loan_id
 
+  # Recibo 2 parametros, el prestamo y el arreglo de amortizaciones
   def guardarAmortizaciones(loan,amortizaciones)
     ActiveRecord::Base.transaction do
       success = false
+      # Ciclo para guardar las amortizaciones
         amortizaciones.each do |amortizacion|
           @amortizacion = Amortization.new()
           @amortizacion.loan_id = loan.id
@@ -20,6 +22,7 @@ class Amortization < ApplicationRecord
             success = true
           end
         end
+        # Retorno el resultado de la transaccion
       return success
     end
   end
