@@ -149,11 +149,18 @@ function Loans() {
                   }}
                 >
                   <option value="">Seleccione el plazo</option>
-                  <option value="12">12 meses</option>
-                  <option value="24">24 meses</option>
-                  <option value="36">36 meses</option>
-                  <option value="48">48 meses</option>
-                  <option value="60">60 meses</option>
+                  <option value="12">1 año</option>
+                  <option value="24">2 años</option>
+                  <option value="36">3 años</option>
+                  <option value="48">4 años</option>
+                  <option value="60">5 años</option>
+                  <option value="72">6 años</option>
+                  <option value="84">7 años</option>
+                  <option value="96">8 años</option>
+                  <option value="108">9 años</option>
+                  <option value="120">10 años</option>
+                  <option value="180">15 años</option>
+                  <option value="300">25 años</option>
                 </Form.Control>
               </Form.Group>
             </Col>
